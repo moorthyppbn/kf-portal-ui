@@ -17,6 +17,7 @@ import Join from 'components/Join';
 import LoginPage from 'components/LoginPage';
 import AuthRedirect from 'components/AuthRedirect';
 import SideImagePage from 'components/SideImagePage';
+import PublicDashboardPage from 'components/PublicDashboardPage';
 import Page from 'components/Page';
 import { FixedFooterPage } from 'components/Page';
 import ContextProvider from 'components/ContextProvider';
@@ -160,6 +161,7 @@ const App = compose(injectState, withApi, withTheme)(
               />
             )}
           />
+          <Route path="/public-dashboard" exact render={props => <PublicDashboardPage />} />
           <Route path="/gen3_redirect" exact render={Gen3AuthRedirect} />
           <Route path="/error" exact render={props => <Error {...props} />} />
           <Redirect from="*" to="/dashboard" />
