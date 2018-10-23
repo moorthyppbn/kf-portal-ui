@@ -2,7 +2,7 @@ import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 import { Chart1 } from './mockData';
 import * as V from 'victory';
-import { VictoryBar, VictoryStack, VictoryChart, VictoryAxis, VictoryLegend } from 'victory';
+import { VictoryBar, VictoryStack, VictoryChart, VictoryAxis, VictoryLegend, Bar } from 'victory';
 import { theme, noGrid } from './theme';
 
 const Skeleton = () => {
@@ -85,7 +85,7 @@ const Skeleton = () => {
         padding={{ left: 220, right: 20 }}
         domainPadding={{ x: 0, y: 20 }}
       >
-        <VictoryStack barWidth={16} colorScale={['#e3429b', '#1f9bb6']} horizontal>
+        <VictoryStack barWidth={16} colorScale={['#1f9bb6', '#e3429b']} horizontal>
           <VictoryBar barWidth={16} data={Chart1} x="id" y="probands" />
           <VictoryBar barWidth={16} data={Chart1} x="id" y="familyMembers" />
         </VictoryStack>
