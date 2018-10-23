@@ -2,13 +2,13 @@ import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 import { Chart1 } from './mockData';
 import * as V from 'victory';
-import { VictoryBar, VictoryStack, VictoryChart, VictoryAxis } from 'victory';
+import { VictoryBar, VictoryStack, VictoryChart, VictoryAxis, VictoryLegend } from 'victory';
+import { theme, noGrid } from './theme';
 
 const Skeleton = () => {
-  const labels = Chart1.map(d => d.id);
-  const probands = Chart1.map(d => d.probands);
-  const familyMembers = Chart1.map(d => d.familyMembers);
-
+  const domain = () => {
+    Chart1.map(d => d.probands + d.familyMembers);
+  };
   return (
     /*
   <div style={{ height: '200px' }}>
@@ -79,11 +79,34 @@ const Skeleton = () => {
     </div>
   </div>*/
     <div>
-      <VictoryChart height={400} width={400} domainPadding={{ x: 30, y: 20 }}>
-        <VictoryStack colorScale={['#e3429b', '#1f9bb6']} horizontal>
-          <VictoryBar data={Chart1} x="id" y="probands" />
-          <VictoryBar data={Chart1} x="id" y="familyMembers" />
+      <VictoryChart
+        barWidth={16}
+        theme={theme}
+        padding={{ left: 220, right: 20 }}
+        domainPadding={{ x: 0, y: 20 }}
+      >
+        <VictoryStack barWidth={16} colorScale={['#e3429b', '#1f9bb6']} horizontal>
+          <VictoryBar barWidth={16} data={Chart1} x="id" y="probands" />
+          <VictoryBar barWidth={16} data={Chart1} x="id" y="familyMembers" />
         </VictoryStack>
+        <VictoryAxis dependentAxis />
+        <VictoryAxis
+          crossAxis={false}
+          domain={{ x: [0, 1250] }}
+          tickValues={[0, 250, 500, 750, 1000, 1250]}
+        />
+        <VictoryLegend
+          y={340}
+          x={480}
+          centerTitle
+          orientation="horizontal"
+          gutter={20}
+          style={{ width: 200, title: { fontSize: 11 } }}
+          data={[
+            { name: '# Probands', symbol: { fill: '#1f9bb6', type: 'square' } },
+            { name: '# Family Members', symbol: { fill: '#e3429b', type: 'square' } },
+          ]}
+        />
       </VictoryChart>
     </div>
   );
