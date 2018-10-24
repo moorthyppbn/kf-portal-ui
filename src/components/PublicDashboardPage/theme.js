@@ -19,7 +19,7 @@ const fontSize = 11;
 
 // Layout
 const baseProps = {
-  width: 1250,
+  width: 450,
   height: 300,
   //  padding: 50,
   colorScale: colors,

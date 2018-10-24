@@ -6,9 +6,6 @@ import { VictoryBar, VictoryStack, VictoryChart, VictoryAxis, VictoryLegend, Bar
 import { theme, noGrid } from './theme';
 
 const Skeleton = () => {
-  const domain = () => {
-    Chart1.map(d => d.probands + d.familyMembers);
-  };
   return (
     /*
   <div style={{ height: '200px' }}>
@@ -85,16 +82,16 @@ const Skeleton = () => {
         padding={{ left: 220, right: 20 }}
         domainPadding={{ x: 0, y: 20 }}
       >
-        <VictoryStack barWidth={16} colorScale={['#1f9bb6', '#e3429b']} horizontal>
-          <VictoryBar barWidth={16} data={Chart1} x="id" y="probands" />
-          <VictoryBar barWidth={16} data={Chart1} x="id" y="familyMembers" />
-        </VictoryStack>
         <VictoryAxis dependentAxis />
         <VictoryAxis
           crossAxis={false}
           domain={{ x: [0, 1250] }}
           tickValues={[0, 250, 500, 750, 1000, 1250]}
         />
+        <VictoryStack barWidth={16} colorScale={['#1f9bb6', '#e3429b']} horizontal>
+          <VictoryBar barWidth={16} data={Chart1} x="id" y="probands" />
+          <VictoryBar barWidth={16} data={Chart1} x="id" y="familyMembers" />
+        </VictoryStack>
         <VictoryLegend
           y={340}
           x={480}
