@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Spinner from 'react-spinkit';
+import styled from 'react-emotion';
+
+const CardBlock = styled('div')``;
 
 const spinner = (
   <Spinner
@@ -17,7 +20,7 @@ const spinner = (
 );
 
 const Card = (title = null, isLoading = false, children = null, styles = {}) =>
-  isLoading ? spinner : <div>Loaded</div>;
+  isLoading ? spinner : <CardBlock>{children}</CardBlock>;
 
 export default Card;
 
