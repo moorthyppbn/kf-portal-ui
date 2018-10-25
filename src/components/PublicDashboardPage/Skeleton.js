@@ -10,6 +10,7 @@ import {
   LineSegment,
 } from 'victory';
 import { theme } from './theme';
+import { Bar } from 'react-chartjs-2';
 
 /**
  * Truncating text and label padding will have to be set for each chart
@@ -28,6 +29,15 @@ const data = Chart1.map(d => {
 const Skeleton = () => {
   return (
     <div>
+      <Bar
+        data={data}
+        width={100}
+        height={50}
+        options={{
+          maintainAspectRatio: false,
+        }}
+      />
+      {/*
       <VictoryChart theme={theme} padding={{ left: 220, right: 20 }} domainPadding={20}>
         <VictoryAxis
           crossAxis={false}
@@ -46,16 +56,17 @@ const Skeleton = () => {
         </VictoryStack>
 
         <VictoryAxis dependentAxis />
+
         <VictoryLegend
-          y={340}
-          x={480}
+          y={240}
+          x={280}
           centerTitle
           data={[
             { name: '# Probands', symbol: { fill: '#1f9bb6', type: 'square' } },
             { name: '# Family Members', symbol: { fill: '#e3429b', type: 'square' } },
           ]}
         />
-      </VictoryChart>
+        </VictoryChart>*/}
     </div>
   );
 };
