@@ -64,7 +64,7 @@ export const theme = {
       },
       tickLabels: {
         textAnchor: 'start',
-        padding: 200,
+        padding: 140,
       },
     },
   },
