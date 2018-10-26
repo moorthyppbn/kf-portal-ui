@@ -52,7 +52,7 @@ class Skeleton extends Component {
               margin={{
                 top: 50,
                 right: 10,
-                bottom: 80,
+                bottom: 25,
                 left: 260,
               }}
               padding={{
@@ -85,6 +85,7 @@ class Skeleton extends Component {
                 id: 'red',
               },
             ]}*/
+              colors={['#1f9bb6', '#e3429b']}
               padding={0.3}
               layout="horizontal"
               borderColor="inherit:darker(1.6)"
@@ -100,7 +101,7 @@ class Skeleton extends Component {
                 tickPadding: 5,
                 tickRotation: 0,
                 renderTick: tick => {
-                  console.log('tick', tick);
+                  //  console.log('tick', tick);
                   const { value, format, key, x, y, theme } = tick;
 
                   // Allow custom formatting
@@ -151,38 +152,16 @@ class Skeleton extends Component {
                   },
                 },
               }}
-              legends={[
-                {
-                  dataFrom: 'keys',
-                  anchor: 'bottom',
-                  direction: 'row',
-                  justify: false,
-                  translateX: 0,
-                  translateY: 63,
-                  itemsSpacing: 2,
-                  itemWidth: 100,
-                  itemHeight: 20,
-                  itemDirection: 'left-to-right',
-                  itemOpacity: 0.85,
-                  symbolSize: 20,
-                  effects: [
-                    {
-                      on: 'hover',
-                      style: {
-                        itemOpacity: 1,
-                      },
-                    },
-                  ],
-                },
-              ]}
             />
           </div>
         }
 
         <Legend
+          style={{ marginLeft: 260 }}
+          itemWidth={200}
           legends={[
-            { title: 'Probands', color: '#1f9bb6' },
-            { title: 'Family Members', color: '#e3429b' },
+            { title: '# Probands', color: '#1f9bb6' },
+            { title: '# Family Members', color: '#e3429b' },
           ]}
         />
       </div>
