@@ -42,7 +42,7 @@ const HorizontalBar = ({
         tickRotation: 0,
         renderTick: tick => {
           const { value, format, key, x, y, theme } = tick;
-          console.log('tick', tick);
+
           // Custom formatting
           let renderedValue = value;
           if (format !== undefined) {
