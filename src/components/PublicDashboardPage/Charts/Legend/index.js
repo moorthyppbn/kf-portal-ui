@@ -54,7 +54,7 @@ const Legend = ({
         }
 
         const legendItem = (
-          <g key={i} height="20" transform={`translate({${i * xOffset},${i * yOffset})`}>
+          <g key={i} height="20" transform={`translate(${i * xOffset},${i * yOffset})`}>
             <SvgSquare fill={l.color} height="20" width="20" x={i * xOffset} y={0} />
             <SvgText textValue={l.title} x={i * xOffset + 22} y={10}>
               {l.title}

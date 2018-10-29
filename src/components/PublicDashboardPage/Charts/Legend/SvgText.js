@@ -30,8 +30,8 @@ const SvgText = ({
 
 SvgText.propTypes = {
   textAnchor: PropTypes.string,
-  x: PropTypes.string,
-  y: PropTypes.string,
+  x: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   style: PropTypes.string,
   textValue: PropTypes.string,
   fill: PropTypes.object,

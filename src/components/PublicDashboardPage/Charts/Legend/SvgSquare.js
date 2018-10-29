@@ -15,11 +15,11 @@ const SvgSquare = ({ x = '0', y = '0', fill = 'black', width = '20', height = '2
 );
 
 SvgSquare.propTypes = {
-  x: PropTypes.string,
-  y: PropTypes.string,
+  x: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   fill: PropTypes.string,
-  width: PropTypes.string,
-  height: PropTypes.string,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default SvgSquare;
