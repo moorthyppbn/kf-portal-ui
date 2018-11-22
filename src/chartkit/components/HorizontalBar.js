@@ -56,7 +56,7 @@ class HorizontalBar extends Component {
 
   renderAxisLeftTick(tick) {
     const { highlightedIndexValue } = this.state;
-    const { xTickTextLength = 10 } = this.props;
+    const { clickableLabels, xTickTextLength = 10 } = this.props;
     const { format, key, x, y, theme, tickIndex } = tick;
 
     let value = tick.value;
@@ -71,6 +71,16 @@ class HorizontalBar extends Component {
 
     const highlighted = value === highlightedIndexValue ? { fill: '#2b388f' } : {};
 
+    const onLabelClick = tick => {
+      console.log(`tick: ${JSON.stringify(tick)}`);
+      console.log(`data: ${JSON.stringify(this.data)}`);
+      const data = this.data.find(d => d.name === tick.value);
+
+      console.log(`tickData: ${JSON.stringify(this.tickData)}`);
+
+      data ? this.onClick({ data }) : null;
+    };
+
     return (
       <g
         key={key}
@@ -84,6 +94,7 @@ class HorizontalBar extends Component {
           textAnchor="start"
           alignmentBaseline="middle"
           style={{ ...theme.axis.ticks.text, ...highlighted }}
+          onClick={this.onClick ? () => onLabelClick(tick) : null}
         >
           {text}
         </text>
