@@ -56,8 +56,11 @@ class HorizontalBar extends Component {
 
   renderAxisLeftTick(tick) {
     const { highlightedIndexValue } = this.state;
-    const { onClick, xTickTextLength = 10 } = this.props;
-    const { format, key, x, y, theme, tickIndex } = tick;
+
+    const { xTickTextLength = 10 } = this.props;
+    const { format, key, x, y, theme, tickIndex, ...rest } = tick;
+
+    console.log('rest: ', rest);
 
     let value = tick.value;
 
@@ -65,9 +68,10 @@ class HorizontalBar extends Component {
       value = format(value);
     }
 
-    const text = truncateText(value, xTickTextLength);
+    // const text = truncateText(value, xTickTextLength);
+    const text = value;
 
-    const xOffset = 160;
+    const xOffset = 80;
 
     const highlighted = value === highlightedIndexValue ? { fill: '#2b388f' } : {};
 
@@ -92,7 +96,25 @@ class HorizontalBar extends Component {
           style={{ ...theme.axis.ticks.text, ...highlighted }}
           onClick={() => onLabelClick(tick)}
         >
-          {text}
+          {text.slice(0, 10)}
+        </text>
+        <text
+          transform={`translate(0, 10)`}
+          className="tickTextAxisLeft"
+          textAnchor="start"
+          alignmentBaseline="middle"
+          style={{ ...theme.axis.ticks.text, ...highlighted }}
+        >
+          {text.slice(10, 20)}
+        </text>
+        <text
+          transform={`translate(0, 20)`}
+          className="tickTextAxisLeft"
+          textAnchor="start"
+          alignmentBaseline="middle"
+          style={{ ...theme.axis.ticks.text, ...highlighted }}
+        >
+          {text.slice(20, text.length)}
         </text>
       </g>
     );
@@ -108,12 +130,7 @@ class HorizontalBar extends Component {
       onMouseEnter: this.onMouseEnter,
       onMouseLeave: this.onMouseLeave,
       onClick: this.onClick,
-      margin: {
-        top: 0,
-        right: 8,
-        bottom: 70,
-        left: 160,
-      },
+      margin: { top: 35, right: 8, bottom: 0, left: 80 },
       padding: this.props.padding ? this.props.padding : 0.3,
       colors: colors,
       defs: [
@@ -127,24 +144,20 @@ class HorizontalBar extends Component {
           spacing: 10,
         },
       ],
-      fill: [
-        {
-          match: x => x.data.index === this.state.highlightedIndex,
-          id: 'lines',
-        },
-      ],
+      fill: [{ match: x => x.data.index === this.state.highlightedIndex, id: 'lines' }],
       colorBy: 'id',
       layout: 'horizontal',
       borderColor: 'inherit:darker(1.6)',
-      axisBottom: {
+      axisBottom: null,
+      axisTop: {
         format: v => v.toLocaleString(),
-        orient: 'bottom',
+        orient: 'top',
         tickSize: 0,
         tickPadding: 5,
         tickRotation: 0,
         legend: '# Participants',
         legendPosition: 'middle',
-        legendOffset: 38,
+        legendOffset: -25,
         tickValues: this.tickValues,
       },
       axisLeft: {
@@ -174,9 +187,9 @@ class HorizontalBar extends Component {
         {!legends ? null : <Legend legends={legends} theme={defaultTheme.legend} />}
         <ChartDisplayContainer>
           {height ? (
-            <ResponsiveBar {...chartData} height={height} />
+            <ResponsiveBar {...chartData} height={500} />
           ) : (
-            <ResponsiveBar {...chartData} />
+            <ResponsiveBar {...chartData} height={500} />
           )}
         </ChartDisplayContainer>
       </HorizontalBarWrapper>
