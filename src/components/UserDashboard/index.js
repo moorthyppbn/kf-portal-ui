@@ -97,11 +97,7 @@ export default compose(
             </DashboardCard>
           </CardSlot>
           <CardSlot sm={12} md={6} lg={6} xl={4}>
-<<<<<<< Updated upstream
-            <DashboardCard title="Research Interests">
-=======
             <DashboardCard title="Top Diagnoses" scrollable>
->>>>>>> Stashed changes
               <DataProvider
                 url={`${publicStatsApiRoot}users/interests`}
                 api={api}
