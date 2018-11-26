@@ -63,9 +63,11 @@ const Create = ({
       setAddingProject(false);
       setProjectName('');
     });
+
   const onCancelClick = () => onProjectCreationCancelled();
   const onProjectNameChange = e => setProjectName(e.target.value);
   const onBillingGroupSelect = e => selectBillingGroup(e.target.value);
+
   return (
     <Column>
       <StyledLabel>Project Name:</StyledLabel>

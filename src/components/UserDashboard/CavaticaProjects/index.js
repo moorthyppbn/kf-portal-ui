@@ -16,8 +16,6 @@ const isValidKey = key => {
 const CavaticaProjects = compose(injectState)(({ state: { integrationTokens } }) => {
   const isConnected = isValidKey(integrationTokens[CAVATICA]);
 
-  console.log('isConnected: ', isConnected);
-
   const onCavaticaData = cardState => projects => {
     cardState.setBadge(projects.length);
   };

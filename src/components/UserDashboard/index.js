@@ -19,7 +19,7 @@ import SavedQueries from './SavedQueries';
 import AuthorizedStudies from './AuthorizedStudies';
 import CavaticaProjects from './CavaticaProjects';
 
-import { DashboardCard, CardContentSpinner } from './styles';
+import { DashboardCard, CardContentSpinner, DashboardMulticard } from './styles';
 import { SizeProvider } from 'components/Utils';
 import DashboardCardError from './DashboardCardError';
 
@@ -81,26 +81,43 @@ export default compose(
             <CavaticaProjects />
           </CardSlot>
           <CardSlot sm={12} md={6} lg={6} xl={4}>
-            <DashboardCard title="Studies">
-              <DataProvider
-                url={`${publicStatsApiRoot}${arrangerProjectId}/studies`}
-                api={api}
-                transform={data =>
-                  _(data.studies)
-                    .map(study => ({ ...study, label: _.startCase(study.name) }))
-                    .value()
-                }
-              >
-                {fetchedState => (
-                  <ChartLoadGate
-                    Error={DashboardCardError}
-                    Loader={CardContentSpinner}
-                    fetchedState={fetchedState}
-                    Chart={StudiesChart}
-                  />
-                )}
-              </DataProvider>
-            </DashboardCard>
+            <DashboardMulticard
+              tabs={[
+                {
+                  title: 'Studies',
+                  component: cardState => (
+                    <DataProvider
+                      url={`${publicStatsApiRoot}${arrangerProjectId}/studies`}
+                      api={api}
+                      transform={data =>
+                        _(data.studies)
+                          .map(study => ({ ...study, label: _.startCase(study.name) }))
+                          .value()
+                      }
+                    >
+                      {fetchedState => {
+                        const { isLoading, data } = fetchedState;
+                        console.log('ciaran', cardState, 'loading', isLoading, 'data', data);
+
+                        const onLoad = cardState => data => {
+                          console.log('data', data);
+                          cardState.setBadge(!isLoading ? data.length : '');
+                        };
+                        return (
+                          <ChartLoadGate
+                            Error={DashboardCardError}
+                            Loader={CardContentSpinner}
+                            fetchedState={fetchedState}
+                            Chart={StudiesChart}
+                            onLoad={onLoad(cardState)}
+                          />
+                        );
+                      }}
+                    </DataProvider>
+                  ),
+                },
+              ]}
+            />
           </CardSlot>
           <CardSlot sm={12} md={6} lg={6} xl={4}>
             <DashboardCard title="Research Interests">
