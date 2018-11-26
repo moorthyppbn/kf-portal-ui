@@ -58,7 +58,7 @@ class Multicard extends Component {
   }
 
   setTitle(title = this.props.tabs[this.state.contentIndex].title) {
-    this.setState({ title });
+    if (title !== this.state.title) this.setState({ title });
   }
 
   componentDidMount() {
