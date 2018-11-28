@@ -74,7 +74,12 @@ class Multicard extends Component {
                   ))}
               </CardHeader>
             </HeaderWrapper>
-            <CarouselProvider naturalSlideWidth={100} naturalSlideHeight={50} totalSlides={2}>
+            <CarouselProvider
+              naturalSlideWidth={100}
+              naturalSlideHeight={50}
+              totalSlides={tabs.length}
+            >
+              <TabProvider currentTabIndex={currentTabIndex} />
               <CardContent scrollable={scrollable}>
                 <Slider>
                   {tabs &&
