@@ -8,10 +8,7 @@ import { CardWrapper, HeaderWrapper } from 'uikit/Card/styles';
 import LoadingSpinner from 'uikit/LoadingSpinner';
 import TabMenu from './TabMenu';
 import IndexDots from './IndexDots';
-
-//const slideDirection = x => x;
-const offset = 100;
-const duration = 1750 * 4;
+import TabProvider from './TabProvider';
 
 class Multicard extends Component {
   constructor(props) {
@@ -30,6 +27,10 @@ class Multicard extends Component {
 
   componentDidMount() {
     this.setTitle();
+    /*setInterval(
+      () => this.setState({ currentTabIndex: this.state.currentTabIndex === 0 ? 1 : 0 }),
+      3000,
+    );*/
   }
 
   setBadge(n) {
@@ -94,8 +95,6 @@ class Multicard extends Component {
                     ))}
                 </Slider>
               </CardContent>
-              <ButtonBack>Back</ButtonBack>
-              <ButtonNext>Next</ButtonNext>
             </CarouselProvider>
             {inactive ? null : <IndexDots index={currentTabIndex} items={tabs.length} />}
           </CardWrapper>
