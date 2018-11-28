@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
+import 'pure-react-carousel/dist/react-carousel.es.css';
 
 import CardHeader from 'uikit/Card/CardHeader';
 import CardContent from 'uikit/Card/CardContent';
 import { CardWrapper, HeaderWrapper } from 'uikit/Card/styles';
-import posed, { PoseGroup } from 'react-pose';
 import LoadingSpinner from 'uikit/LoadingSpinner';
 import TabMenu from './TabMenu';
 import IndexDots from './IndexDots';
@@ -11,16 +12,6 @@ import IndexDots from './IndexDots';
 //const slideDirection = x => x;
 const offset = 100;
 const duration = 1750 * 4;
-
-const getStartPosition = (selectedTabIndex, tabIndex) => {
-  console.log('selected tab', selectedTabIndex, 'tab', tabIndex);
-  return selectedTabIndex > tabIndex ? '-100%' : '100%';
-};
-
-const AnimatedChild = posed.div({
-  enter: { x: 0, transition: { x: { duration: duration } } },
-  exit: { x: '-100%', transition: { x: { duration: duration } } },
-});
 
 class Multicard extends Component {
   constructor(props) {
@@ -30,10 +21,7 @@ class Multicard extends Component {
       badgeNumber: null,
       currentTabIndex: 0,
       title: '',
-      loading: true,
     };
-
-    this.animatedTabs = [];
 
     this.setBadge = this.setBadge.bind(this);
     this.setTitle = this.setTitle.bind(this);
@@ -42,26 +30,6 @@ class Multicard extends Component {
 
   componentDidMount() {
     this.setTitle();
-
-    console.log('CDM', this.props);
-    const tabs = this.props.tabs;
-    const animatedTabs = tabs.map((tab, i) => (
-      <PoseGroup>
-        <AnimatedChild key={i} tabIndex={i}>
-          {tab.component({
-            setTitle: this.setTitle,
-            setBadge: this.setBadge,
-            setIndex: this.setIndex,
-          })}
-        </AnimatedChild>
-      </PoseGroup>
-    ));
-
-    this.animatedTabs = animatedTabs;
-    console.log('animatedTabs', animatedTabs);
-    //setInterval(() => this.setState({ currentTabIndex: this.state.currentTabIndex === 0 ? 1 : 0 }), 4000);
-    this.setState({ loading: false });
-    console.log('state', this.state);
   }
 
   setBadge(n) {
@@ -87,9 +55,6 @@ class Multicard extends Component {
     const { loading, currentTabIndex, title, badgeNumber } = this.state;
     const { tabs, inactive, className, scrollable } = this.props;
 
-    const activeTab = loading ? null : this.animatedTabs[currentTabIndex];
-
-    //console.log('active component', activeTab);
     return (
       <div>
         {loading ? (
@@ -109,7 +74,24 @@ class Multicard extends Component {
                   ))}
               </CardHeader>
             </HeaderWrapper>
-            <CardContent scrollable={scrollable}>{activeTab}</CardContent>
+            <CarouselProvider naturalSlideWidth={100} naturalSlideHeight={50} totalSlides={2}>
+              <CardContent scrollable={scrollable}>
+                <Slider>
+                  {tabs &&
+                    tabs.map((tab, i) => (
+                      <Slide index={0}>
+                        {tab.component({
+                          setTitle: this.setTitle,
+                          setBadge: this.setBadge,
+                          setIndex: this.setIndex,
+                        })}
+                      </Slide>
+                    ))}
+                </Slider>
+              </CardContent>
+              <ButtonBack>Back</ButtonBack>
+              <ButtonNext>Next</ButtonNext>
+            </CarouselProvider>
             {inactive ? null : <IndexDots index={currentTabIndex} items={tabs.length} />}
           </CardWrapper>
         )}
