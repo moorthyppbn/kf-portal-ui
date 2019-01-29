@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'react-emotion';
 
 const Link = styled('div')`
-  ${({ theme }) => console.log('theme', theme)}
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 500;
@@ -13,8 +12,6 @@ const Link = styled('div')`
     cursor: pointer;
   }
 `;
-
-const IconWrapper = styled('div')``;
 
 const ViewLink = ({ children, icon, onClick, active }) => (
   <Link active={active} onClick={onClick}>
