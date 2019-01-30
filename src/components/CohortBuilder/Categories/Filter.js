@@ -42,17 +42,21 @@ const TealButton = styled(TealActionButton)`
 const Filter = ({ children, onCancel, onBack, onApply }) => (
   <FilterCont>
     <Header>
-      <WButton onClick={onBack}>
-        <LeftIcon />
-        Back
-      </WButton>
+      {onBack && (
+        <WButton onClick={onBack}>
+          <LeftIcon />
+          Back
+        </WButton>
+      )}
     </Header>
     <Content>{children}</Content>
     <Footer>
-      <WButton onClick={onCancel}>Cancel</WButton>
-      <TealButton onClick={onApply} mx={5} my={5}>
-        Apply
-      </TealButton>
+      {onCancel && <WButton onClick={onCancel}>Cancel</WButton>}
+      {onApply && (
+        <TealButton onClick={onApply} mx={5} my={5}>
+          Apply
+        </TealButton>
+      )}
     </Footer>
   </FilterCont>
 );
