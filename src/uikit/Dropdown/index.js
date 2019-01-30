@@ -1,6 +1,7 @@
 import React from 'react';
 import Downshift from 'downshift';
 import { compose, withState, withHandlers } from 'recompose';
+import PropTypes from 'prop-types';
 
 import {
   DropdownContainer,
@@ -112,5 +113,9 @@ export const withDropdownMultiPane = compose(
     }),
   ),
 );
+
+Dropdown.propTypes = {
+  items: PropTypes.array.isRequired,
+};
 
 export default Dropdown;
