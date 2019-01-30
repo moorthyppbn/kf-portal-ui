@@ -7,9 +7,6 @@ import LeftIcon from 'react-icons/lib/fa/angle-left';
 const FilterCont = styled('div')`
   display: flex;
   flex-direction: column;
-  position: absolute;
-  left: 0;
-  top: 100%;
   cursor: pointer;
   text-align: left;
   border-radius: 5px;
