@@ -23,6 +23,7 @@ const FilterInputWrapper = styled(Row)`
     flex: 1;
   }
 `;
+
 const setNativeValue = (element, value) => {
   const valueSetter = Object.getOwnPropertyDescriptor(element, 'value').set;
   const prototype = Object.getPrototypeOf(element);
@@ -34,6 +35,7 @@ const setNativeValue = (element, value) => {
     valueSetter.call(element, value);
   }
 };
+
 export const FilterInput = ({
   LeftIcon = SearchIcon,
   RightIcon = FaTimesCircleO,
@@ -41,6 +43,7 @@ export const FilterInput = ({
   value,
   disabled,
   ref = React.createRef(),
+  onClearInput = x => x,
   ...props
 }) => {
   const clearInput = () => {
@@ -52,7 +55,15 @@ export const FilterInput = ({
     <FilterInputWrapper disabled={disabled} className={className}>
       {LeftIcon && <LeftIcon className={'icon-left'} />}
       <input {...{ value, disabled, ...props }} ref={ref} autoFocus />
-      {value && value.length && <RightIcon className={'icon-right'} onClick={clearInput} />}
+      {value && value.length && (
+        <RightIcon
+          className={'icon-right'}
+          onClick={() => {
+            clearInput();
+            onClearInput();
+          }}
+        />
+      )}
     </FilterInputWrapper>
   );
 };
