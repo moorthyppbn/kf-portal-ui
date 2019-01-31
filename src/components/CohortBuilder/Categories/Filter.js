@@ -9,8 +9,6 @@ const FilterCont = styled('div')`
   flex-direction: column;
   cursor: pointer;
   text-align: left;
-  border-radius: 5px;
-  box-shadow: 0 0 5.9px 0.1px #bbbbbb;
   border: 1px solid #e0e1e6;
   z-index: 1;
   min-width: 315px;

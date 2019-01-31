@@ -25,8 +25,9 @@ export const DropdownLabelContainer = styled(Row)`
   cursor: pointer;
   flex-grow: 1;
   height: 100%;
+  width: 100%;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 export const DropdownOptionsContainer = styled(Column)`
