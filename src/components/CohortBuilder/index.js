@@ -3,13 +3,15 @@ import styled from 'react-emotion';
 import { compose } from 'recompose';
 import { injectState } from 'freactal';
 import { css } from 'emotion';
+import { withRouter } from 'react-router-dom';
+import urlJoin from 'url-join';
 
 import saveSet from '@arranger/components/dist/utils/saveSet';
 import graphql from 'services/arranger';
 import { withApi } from 'services/api';
 import { createNewVirtualStudy } from 'services/virtualStudies';
 import { H1 } from 'uikit/Headings';
-import { WhiteButton, TealActionButton } from 'uikit/Button.js';
+import { TealActionButton } from 'uikit/Button.js';
 import Row from 'uikit/Row';
 import Categories from './Categories';
 import ContentBar from './ContentBar';
@@ -19,6 +21,7 @@ import SQONProvider from './SQONProvider';
 import VirtualStudyListProvider from './VirtualStudyListProvider';
 import SaveVirtualStudiesModalContent from './SaveVirtualStudiesModalContent';
 import SaveIcon from 'icons/SaveIcon';
+import ShareQuery from 'components/ShareSaveQuery/ShareQuery';
 
 const Container = styled('div')`
   width: 100%;
@@ -48,7 +51,8 @@ const SaveButtonText = styled('span')`
 const CohortBuilder = compose(
   withApi,
   injectState,
-)(({ api, state: { loggedInUser }, effects }) => (
+  withRouter,
+)(({ api, state: { loggedInUser }, effects, history }) => (
   <VirtualStudyListProvider>
     {({
       virtualStudies = [],
@@ -81,7 +85,7 @@ const CohortBuilder = compose(
           const onVirtualStudySelectChange = e => {
             onVirtualStudySelect(e.target.value);
           };
-          const saveStudy = async studyName => {
+          const createStudy = async studyName => {
             const newStudyId = await createNewVirtualStudy({
               api,
               loggedInUser,
@@ -94,23 +98,27 @@ const CohortBuilder = compose(
             });
             await refetchVirtualStudies();
             setVirtualStudy(newStudyId);
+            return { studyName, id: newStudyId };
           };
 
-          const onSaveClick = () => {
-            effects.setModal({
-              title: 'Save as Virtual Study',
-              classNames: {
-                modal: css`
-                  max-width: 800px;
-                `,
-              },
-              component: (
-                <SaveVirtualStudiesModalContent
-                  onSubmit={({ studyName }) => saveStudy(studyName)}
-                />
-              ),
+          const saveStudy = () =>
+            new Promise(resolve => {
+              effects.setModal({
+                title: 'Save as Virtual Study',
+                classNames: {
+                  modal: css`
+                    max-width: 800px;
+                  `,
+                },
+                component: (
+                  <SaveVirtualStudiesModalContent
+                    onSubmit={({ studyName }) => {
+                      createStudy(studyName).then(resolve);
+                    }}
+                  />
+                ),
+              });
             });
-          };
 
           const createNewSqonExcludingParticipants = participantIds => {
             saveSet({
@@ -155,6 +163,20 @@ const CohortBuilder = compose(
               .catch(console.error);
           };
 
+          const getSharableLink = ({ id }) =>
+            urlJoin(
+              window.location.origin,
+              history.createHref({ ...history.location, search: `id=${id}` }),
+            );
+
+          const handleShare = () => {
+            if (selectedVirtualStudy) {
+              return Promise.resolve({ id: selectedVirtualStudy });
+            } else {
+              return saveStudy().then(Promise.reject);
+            }
+          };
+
           return (
             <Container>
               <Content>
@@ -165,11 +187,9 @@ const CohortBuilder = compose(
                     onChange={onVirtualStudySelectChange}
                     disabled={!virtualStudies.length}
                   >
-                    {!virtualStudies.length && (
-                      <option value="" disabled selected>
-                        Load a Virtual Study
-                      </option>
-                    )}
+                    <option value="" disabled selected>
+                      Load a Virtual Study
+                    </option>
                     {virtualStudies.map(({ id, name }) => (
                       <option value={id} key={id}>
                         {name}
@@ -181,14 +201,19 @@ const CohortBuilder = compose(
                   <TealActionButton
                     mr={'10px'}
                     disabled={loadingVirtualStudyList}
-                    onClick={onSaveClick}
+                    onClick={saveStudy}
                   >
                     <span>
                       <SaveIcon height={10} width={10} fill={'white'} />
                     </span>
                     <SaveButtonText>Save virtual study</SaveButtonText>
                   </TealActionButton>
-                  <WhiteButton>Share</WhiteButton>
+                  <ShareQuery
+                    // disabled={!(selectedVirtualStudy && isOwner)}
+                    showTooltip={selectedVirtualStudy && isOwner}
+                    handleShare={handleShare}
+                    getSharableLink={getSharableLink}
+                  />
                 </Row>
               </Content>
               <FullWidthWhite>
