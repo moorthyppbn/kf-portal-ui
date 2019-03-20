@@ -4,6 +4,7 @@
 
 .search-all-filter .query-container {
   overflow: hidden;
+  width: 100%;
 }
 
 /***** INPUT FIELD *****/
