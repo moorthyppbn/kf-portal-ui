@@ -31,15 +31,9 @@ export const TRACKING_EVENTS = {
     },
     cohortBuilder: {
       _cohortBuilder: "Cohort Builder",
-      filters:{
+      filters: {
         _cohortBuilderFilters: "Cohort Builder: Filters",
-        quickFilters: "Cohort Builder: Filters - Quick",
-        studyFilters: "Cohort Builder: Filters - Study",
-        demographicFilters: "Cohort Builder: Filters - Demographic",
-        clinicalFilters: "Cohort Builder: Filters - Clinical",
-        biospecimensFilters: "Cohort Builder: Filters - Biospecimens",
-        availableDataFilters: "Cohort Builder: Filters - Available Data",
-      } 
+      }
     },
     fileRepo: {
       filters: 'File Repo: Filters',
@@ -81,6 +75,9 @@ export const TRACKING_EVENTS = {
       connected: 'Integration Connection SUCCESS',
       failed: 'Integration Connection FAILED',
     },
+    search: 'Search',
+    clear: 'Clear',
+    apply: 'Apply',
   },
   labels: {
     joinProcess: 'Join Process',
