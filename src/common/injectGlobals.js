@@ -1,7 +1,6 @@
 import queryString from 'querystring';
 
-const getApplicationEnvVar = envVarName =>
-  process.env[`REACT_APP_${envVarName}`] || process.env[`STORYBOOK_${envVarName}`];
+const getApplicationEnvVar = envVarName => process.env[`REACT_APP_${envVarName}`];
 
 localStorage.setItem('debug', getApplicationEnvVar('DEBUG') || ''); // manually set because CRA doesn't allow arbitrary env variable names.
 const debug = require('debug');
@@ -43,9 +42,6 @@ export const googleAppId = getApplicationEnvVar('GOOGLE_APP_ID');
 export const facebookAppId = getApplicationEnvVar('FACEBOOK_APP_ID');
 export const egoAppId = getApplicationEnvVar('EGO_APP_ID');
 export const googleMapsKey = getApplicationEnvVar('GOOGLE_MAPS_KEY');
-
-export const usersnapHost = getApplicationEnvVar('USERSNAP_HOST');
-export const usersnapId = getApplicationEnvVar('USERSNAP_ID');
 
 export const hotjarHost = getApplicationEnvVar('HOTJAR_HOST');
 export const hotjarId = getApplicationEnvVar('HOTJAR_ID');

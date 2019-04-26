@@ -29,8 +29,10 @@ export const TRACKING_EVENTS = {
       file: 'Entity Page: File',
       participant: 'Entity Page: Participant',
     },
+
     cohortBuilder: {
       _cohortBuilder: "Cohort Builder",
+      sqonBuilder:"Cohort Builder: SQON Builder",
       filters: {
         _cohortBuilderFilters: "Cohort Builder: Filters",
       }
@@ -40,8 +42,13 @@ export const TRACKING_EVENTS = {
       dataTable: 'File Repo: Data Table',
       actionsSidebar: 'File Repo: Actions Sidebar',
     },
+    cohortBuilder:{
+
+    },
     integration: {
       cavatica: 'Integration: Cavatica',
+      gen3: 'Integration: Gen3',
+      dcf: 'Integration: DCF',
     },
   },
   actions: {
@@ -73,6 +80,7 @@ export const TRACKING_EVENTS = {
     integration: {
       init: 'Integration Connection INIT',
       connected: 'Integration Connection SUCCESS',
+      disconnected: 'Integration Connection DISCONNECTED',
       failed: 'Integration Connection FAILED',
     },
     search: 'Search',
@@ -82,6 +90,7 @@ export const TRACKING_EVENTS = {
   labels: {
     joinProcess: 'Join Process',
     gen3: 'Gen3',
+    dcf: 'DCF',
     cavatica: 'Cavatica',
   },
   timings: {
