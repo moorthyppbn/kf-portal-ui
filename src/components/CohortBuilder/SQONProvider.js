@@ -146,7 +146,7 @@ const SQONProvider = compose(
           mergeSqonToActiveIndex: mergeSqonToActiveIndex(s),
           activeVirtualStudyId: virtualStudyId,
           setActiveVirtualStudyId: setStudyInHash,
-          isOwner: uid === loggedInUser.egoId,
+          isOwner: uid === true,
         });
       }}
     </Component>

@@ -32,7 +32,7 @@ const PROVIDERS = {
   gen3: { fenceUri: gen3ApiRoot },
   dcf: { fenceUri: dcfApiRoot },
 };
-FENCES.forEach(fence => {
+FENCES.forEach(fence => {/*
   const authCliUri = `${fenceAuthClientUri}?fence=${fence}`;
   fetch(authCliUri)
     .then(res => res.json())
@@ -40,7 +40,7 @@ FENCES.forEach(fence => {
       PROVIDERS[fence].clientId = client_id;
       PROVIDERS[fence].redirectUri = redirect_uri;
     });
-});
+  */});
 
 /*
  * Connect To A Fence

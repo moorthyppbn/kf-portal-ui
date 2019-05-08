@@ -96,19 +96,19 @@ const CohortBuilder = compose(
         }) => {
           const executableSqon = getActiveExecutableSqon();
           const sqonBuilderSqonsChange = ({ newSyntheticSqons }) => {
-            setSqons(newSyntheticSqons);
+           // setSqons(newSyntheticSqons);
           };
           const sqonBuilderActiveSqonSelect = props => {
-            setActiveSqonIndex(props.index);
+            //setActiveSqonIndex(props.index);
           };
           const categoriesSqonUpdate = newSqon => {
-            mergeSqonToActiveIndex(newSqon);
+            //mergeSqonToActiveIndex(newSqon);
           };
           const resetSqons = () => {
             setSqons([{ op: 'and', content: [] }]);
           };
           const saveStudy = async studyName => {
-            if (!(studyName || '').length) {
+            /*if (!(studyName || '').length) {
               throw new Error('Study name cannot be empty');
             }
             const { id: newStudyId } = await createNewVirtualStudy({
@@ -122,7 +122,7 @@ const CohortBuilder = compose(
               description: '',
             });
             await refetchVirtualStudies();
-            setActiveVirtualStudyId(newStudyId);
+            setActiveVirtualStudyId(newStudyId);*/
           };
 
           const onSaveAsClick = () => {
@@ -138,7 +138,7 @@ const CohortBuilder = compose(
           };
 
           const deleteStudy = async deleteStudyCallback => {
-            if (!(activeVirtualStudyId || '').length) {
+            /*if (!(activeVirtualStudyId || '').length) {
               throw new Error('Study name cannot be empty');
             }
             await deleteVirtualStudy({
@@ -151,7 +151,7 @@ const CohortBuilder = compose(
             // TODO : reset the sqon as soon as possible,
             //  but not in case of a failure
             resetSqons();
-            setActiveVirtualStudyId('');
+            setActiveVirtualStudyId('');*/
           };
 
           const findSelectedStudy = () => {
@@ -240,10 +240,7 @@ const CohortBuilder = compose(
               <StylePromptMessage
                 content={
                   <div>
-                    <strong>BETA RELEASE: </strong>Use the cohort builder to create virtual studies.
-                    You can query participant variables including demographic, clinical, and data
-                    categories. It's in progress, so you may experience some bugs. To give feedback,
-                    click the button in the bottom right corner. All feedback is welcome!
+                    <strong>BETA RELEASE: </strong>
                   </div>
                 }
               />
@@ -273,16 +270,6 @@ const CohortBuilder = compose(
 
                   <span style={{ marginLeft: 10, marginRight: 10 }}>
                     <Tooltip html={<div>Open a saved virtual study</div>}>
-                      <LoadQuery
-                        studies={virtualStudies}
-                        selection={selectedStudy}
-                        handleOpen={setActiveVirtualStudyId}
-                        disabled={
-                          virtualStudyListIsLoading ||
-                          (virtualStudies.length === 1 && selectedStudy && selectedStudy.id) ||
-                          virtualStudies.length < 1
-                        }
-                      />
                     </Tooltip>
                   </span>
 
@@ -313,35 +300,13 @@ const CohortBuilder = compose(
                       <DeleteQuery disabled={!activeVirtualStudyId} handleDelete={onDeleteClick} />
                     </Tooltip>
                   </span>
-
-                  <Tooltip html={<div>Share this virtual study</div>}>
-                    <ShareQuery
-                      disabled={!sharingEnabled}
-                      getSharableUrl={getSharableUrl}
-                      handleShare={() => Promise.resolve({ id: activeVirtualStudyId })}
-                    />
-                  </Tooltip>
                 </Row>
               </Content>
               <FullWidthWhite>
                 <Content>
-                  <Categories sqon={executableSqon} onSqonUpdate={categoriesSqonUpdate} />
+                  <Categories sqon={null} onSqonUpdate={categoriesSqonUpdate} />
                 </Content>
-                <SqonBuilderContainer>
-                  <SqonBuilder
-                    syntheticSqons={syntheticSqons}
-                    activeSqonIndex={activeSqonIndex}
-                    onChange={sqonBuilderSqonsChange}
-                    onActiveSqonSelect={sqonBuilderActiveSqonSelect}
-                    emptyEntryMessage="Use the filters above to build a query"
-                  />
-                </SqonBuilderContainer>
               </FullWidthWhite>
-              <Results
-                sqon={executableSqon}
-                activeSqonIndex={activeSqonIndex}
-                onRemoveFromCohort={createNewSqonExcludingParticipants}
-              />
             </Container>
           );
         }}

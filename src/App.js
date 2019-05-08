@@ -120,7 +120,7 @@ const App = compose(
         <Route path="/auth-redirect" exact component={AuthRedirect} />
         <Route path="/redirected" exact component={() => null} />
         <Route
-          path={COHORT_BUILDER_PATH}
+          path="/"
           exact
           render={props =>
             forceSelectRole({
@@ -222,7 +222,7 @@ const App = compose(
           }}
         />
         <Route
-          path="/"
+          path="/old"
           exact
           render={props => (
             <SideImagePage

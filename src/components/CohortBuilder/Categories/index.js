@@ -168,45 +168,10 @@ class Categories extends React.Component {
 
     return (
       <Container>
-        <SearchAll
-          title={'Search all filters'}
-          sqon={sqon}
-          onSearchField={this.handleSearchField}
-          onSqonUpdate={this.handleSqonUpdate}
-          fields={CATEGORY_FIELDS.searchAll}
-          color={theme.filterViolet}
-        />
-        <Category
-          title="Quick Filters"
-          sqon={sqon}
-          onSqonUpdate={this.handleSqonUpdate}
-          onClose={this.handleCategoryClose}
-          fields={CATEGORY_FIELDS.quickSearch}
-          currentSearchField={currentSearchField}
-          color={theme.filterPurple}
-          setActiveCategory={this.setActiveCategory}
-          category={CATEGORY_NAMES.quickSearch}
-          currentCategory={currentCategory}
-        >
-          <QuickFilterIcon fill={theme.filterPurple} />
-        </Category>
-        <Category
-          title="Study"
-          sqon={sqon}
-          onSqonUpdate={this.handleSqonUpdate}
-          onClose={this.handleCategoryClose}
-          fields={CATEGORY_FIELDS.study}
-          currentSearchField={currentSearchField}
-          color={theme.studyRed}
-          setActiveCategory={this.setActiveCategory}
-          category={CATEGORY_NAMES.study}
-          currentCategory={currentCategory}
-        >
-          <StudyIcon fill={theme.studyRed} />
-        </Category>
+        
         <Category
           title="Demographic"
-          sqon={sqon}
+         
           onSqonUpdate={this.handleSqonUpdate}
           onClose={this.handleCategoryClose}
           fields={CATEGORY_FIELDS.demographic}
@@ -220,7 +185,7 @@ class Categories extends React.Component {
         </Category>
         <Category
           title="Clinical"
-          sqon={sqon}
+          
           onSqonUpdate={this.handleSqonUpdate}
           onClose={this.handleCategoryClose}
           fields={CATEGORY_FIELDS.clinical}
@@ -234,7 +199,7 @@ class Categories extends React.Component {
         </Category>
         <Category
           title="Biospecimens"
-          sqon={sqon}
+          
           onSqonUpdate={this.handleSqonUpdate}
           onClose={this.handleCategoryClose}
           fields={CATEGORY_FIELDS.biospecimen}
@@ -245,20 +210,6 @@ class Categories extends React.Component {
           currentCategory={currentCategory}
         >
           <BiospecimenIcon fill={theme.biospecimenOrange} />
-        </Category>
-        <Category
-          title="Available Data"
-          sqon={sqon}
-          onSqonUpdate={this.handleSqonUpdate}
-          onClose={this.handleCategoryClose}
-          fields={CATEGORY_FIELDS.availableData}
-          currentSearchField={currentSearchField}
-          color={theme.dataBlue}
-          setActiveCategory={this.setActiveCategory}
-          category={CATEGORY_NAMES.availableData}
-          currentCategory={currentCategory}
-        >
-          <FileIcon width={11} height={14} fill={theme.dataBlue} />
         </Category>
       </Container>
     );
